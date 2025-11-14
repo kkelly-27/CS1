@@ -68,9 +68,9 @@ function zipZone(zip) {
 
 
 
-function money_convert(parcelType, zone1, zone2){
+function moneyConvert(parcelType, zone1, zone2){
     let price = 0
-    const zoneTravel = abs(zone1 - zone2)
+    const zoneTravel = Math.abs(zone1 - zone2)
     if (parcelType === 1) {
         price = .2 + zoneTravel * .03;
     } else if (parcelType === 2) {
@@ -84,6 +84,7 @@ function money_convert(parcelType, zone1, zone2){
     }  else if (parcelType === 6) {
         price = 3.95 + zoneTravel * .35;
     }
+    console.log(zoneTravel, price)
     return price;  
 }
 
@@ -93,13 +94,13 @@ function main() {
     let length = parseFloat(document.getElementById("length").value);  
     let width = parseFloat(document.getElementById("width").value); 
     let height = parseFloat(document.getElementById("height").value);
-
-
-    
     let zone1 = parseInt(document.getElementById("zone1").value);
     let zone2 = parseInt(document.getElementById("zone2").value);
     
-    if ([-1, length, width, height, zone1, zone2, mailDimensions(length, width, height)].includes(-1)) {
+    zone1 = zipZone(zone1);
+    zone2 = zipZone(zone2);
+
+    if ([length, width, height, zone1, zone2, mailDimensions(length, width, height)].includes(-1)) {
       // Display the result inside the <p> tag  ( Salvaged: <h2><u>ENTER PACKAGE INFORMTAION</u>:</h2><br>) 
       document.getElementById("result").innerText = "UNMAILABLE";
 
