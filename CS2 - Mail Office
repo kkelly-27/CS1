@@ -108,6 +108,7 @@ function main() {
         let martianMail = moneyConvert(mailDimensions(length, width, height), zone1, zone2);
        martianMail = martianMail.toFixed(2);
         martianMail = martianMail.replace(/^0/, '');
+        martianMail = "$"+martianMail
         document.getElementById("result").innerText = (martianMail);
     }
 }
@@ -130,6 +131,6 @@ function main() {
   <center><button onclick="main()" style="width: 350px; height: 55px; font-size: 32px; border: 3px solid black;"><strong>CALCULATE PRICE</strong></button></center> 
   
   <!-- Area to display the result -->
-  <p id="result"></p>
+  <center><strong><p id="result" style = "font-size: 32px;"></p></strong></center>
 </body>
 </html>
