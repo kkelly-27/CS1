@@ -1,0 +1,142 @@
+import csv
+
+#ADD GOAL 1
+
+def p_survival_rate(input):
+    with open('survival_rate.csv', 'w') as output:
+
+        # Skip header row
+        next(input)
+
+        survived_count = 0
+        total_count = 0
+       
+        for line in input:
+            fields = line.strip().split(',')
+       
+            survived = fields[1]
+            total_count += 1
+
+            if survived == "1":
+                survived_count += 1
+
+        survival_rate = (survived_count / total_count) * 100
+           
+        output.write("Survived" + "," + "Total" + "," + "Survival Rate (%)")
+        output.write("\n")
+        output.write(
+            str(survived_count) + "," + str(total_count) + "," + f"{survival_rate:.2f}")
+
+
+def p_class(input):
+    with open('class.csv', 'w') as output:
+
+        # Skip header row
+        next(input)
+
+        first_class = 0
+        second_class = 0
+        third_class = 0
+       
+        for line in input:
+            fields = line.strip().split(',')
+       
+            pclass = fields[2]
+           
+            if pclass == "1":
+                first_class += 1
+            elif pclass == "2":
+                second_class += 1
+            elif pclass == "3":
+                third_class += 1
+           
+        output.write("First Class" + "," + "Second Class" + "," + "Third Class")
+        output.write("\n")
+        output.write(str(first_class) + "," + str(second_class) + "," + str(third_class))
+        output.write("\n")
+        output.write(str(first_class) + "," + str(second_class) + "," + str(third_class))
+
+
+def p_gender(input):
+    with open('genders.csv', 'w') as output:
+       
+        # Skip header row
+        next(input)
+       
+        male_count = 0
+        female_count = 0
+       
+        for line in input:
+            fields = line.strip().split(',')
+       
+            sex = fields[5]
+           
+            if sex == "male":
+                male_count += 1
+            elif sex == "female":
+                female_count += 1
+           
+        output.write("Male" + "," + "Female")
+        output.write("\n")
+        output.write(str(male_count) + "," + str(female_count))
+
+
+def p_age(input):
+    with open('age.csv', 'w') as output:
+
+        # Skip header row
+        next(input)
+
+        total_age = 0
+        age_count = 0
+
+        survivor_age = 0
+        survivor_count = 0
+
+        nonsurvivor_age = 0
+        nonsurvivor_count = 0
+
+        youngest_age = None
+        oldest_age = None
+       
+        for line in input:
+            fields = line.strip().split(',')
+       
+            survived = fields[1]
+            age = fields[6]
+
+            if age != "":
+                age = float(age)
+                total_age += age
+                age_count += 1
+
+                if youngest_age is None or age < youngest_age:
+                    youngest_age = age
+                if oldest_age is None or age > oldest_age:
+                    oldest_age = age
+
+                if survived == "1":
+                    survivor_age += age
+                    survivor_count += 1
+                else:
+                    nonsurvivor_age += age
+                    nonsurvivor_count += 1
+           
+        average_age = total_age / age_count if age_count > 0 else 0
+        average_survivor_age = survivor_age / survivor_count if survivor_count > 0 else 0
+        average_nonsurvivor_age = nonsurvivor_age / nonsurvivor_count if nonsurvivor_count > 0 else 0
+
+        output.write("Average Age" + "," + "Average Survivor Age" + "," + "Average Nonsurvivor Age")
+        output.write("\n")
+        output.write(f"{average_age:.2f}" + "," + f"{average_survivor_age:.2f}" + "," + f"{average_nonsurvivor_age:.2f}")
+        output.write("\n")
+        output.write("Youngest Age" + "," + "Oldest Age")
+
+        
+def main():
+    input_file = 'titanic.csv'
+    with open(input_file, 'r') as input:
+        p_gender(input)
+
+if __name__ == '__main__':
+    main()
