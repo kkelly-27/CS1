@@ -1,8 +1,26 @@
 
 def load_display():
-    with open('titanic.csv', 'r') as input:
+    with open('load_display', 'r') as output: 
+
+        top = next(input).strip()
+        columns = top.split(',')
+
+        print("Columns:")
+        print(columns)
+
+        print('\n First 10 Rows:')
+        row_count = 0
+
         for line in input:
-            print(line.strip())
+            if row_count < 10:
+                print(line.strip())
+                row_count += 1
+
+        print('\n Passengers In Total:', row_count)
+
+        output.write('total_passengers\n')
+        output.write(str(row_count))
+
 
 def p_survival_rate(input):
     with open('survival_rate.csv', 'w') as output:
@@ -87,13 +105,10 @@ def p_age(input):
 
         total_age = 0
         age_count = 0
-
         survivor_age = 0
         survivor_count = 0
-
         nonsurvivor_age = 0
         nonsurvivor_count = 0
-
         youngest_age = None
         oldest_age = None
        
@@ -120,15 +135,19 @@ def p_age(input):
                     nonsurvivor_age += age
                     nonsurvivor_count += 1
            
-        average_age = total_age / age_count if age_count > 0 else 0
-        average_survivor_age = survivor_age / survivor_count if survivor_count > 0 else 0
-        average_nonsurvivor_age = nonsurvivor_age / nonsurvivor_count if nonsurvivor_count > 0 else 0
+        average_age = total_age / age_count 
+        average_survivor_age = survivor_age / survivor_count 
+        average_nonsurvivor_age = nonsurvivor_age / nonsurvivor_count 
 
-        output.write("Average Age" + "," + "Average Survivor Age" + "," + "Average Nonsurvivor Age")
-        output.write("\n")
-        output.write(f"{average_age:.2f}" + "," + f"{average_survivor_age:.2f}" + "," + f"{average_nonsurvivor_age:.2f}")
-        output.write("\n")
-        output.write("Youngest Age" + "," + "Oldest Age")
+        output.write('average_age, average_survivor_age, average_nonsurvivor_age, youngest_age, oldest_age\n')
+        output.write(
+                str(round(average_age, 2)) + "," +
+                str(round(average_survivor_age, 2)) + "," +
+                str(round(average_nonsurvivor_age, 2)) + "," +
+                str(youngest_age) + "," +
+                str(oldest_age)
+)
+        
 
 def p_family(input):
     with open('family.csv', 'w') as output:
